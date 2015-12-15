@@ -1,0 +1,131 @@
+<!doctype html>
+<html ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+        <title>Libération.fr – </title>
+        <meta name="description" content="Tout savoir sur les dernières actualités politiques, monde, société, sports, écologie avec le journal en ligne Libération.">
+        <meta name="keywords" content="actualités, news">
+
+        <link rel="shortcut icon" href="http://www.liberation.fr/favicon.ico">
+        <link rel="shortcut icon" href="http://www.liberation.fr/favicon.png">
+
+        <link rel="canonical" href="http://www.liberation.fr/apps////">
+
+        <meta property="og:title" content="La progression du FN, département par département" />
+        <meta property="og:site_name" content="Libération.fr"/>
+        <meta property="og:image" content="http://www.liberation.fr/apps////social.jpg" />
+        <meta property="og:url" content="http://www.liberation.fr/apps////" />
+        <meta property="og:description" content="" />
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+        <!-- D3 -->
+        <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- ANGULAR -->
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+    </head>
+    <body ng-controller="Ctrl">
+        <div class="col-md-4 left">
+            <h1>Un titre à gauche</h1>
+            <p>
+                Avec un peu d'explications ou ¯\_(ツ)_/¯<br>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <div class="form-horizontal">
+                <div class="form-group" ng-repeat="(f, filter) in filters">
+                    <label for="filter{{ $index }}" class="col-sm-4 control-label">{{ f }}</label>
+                    <div class="col-sm-8">
+                        <select id="filter{{ $index }}" class="form-control" ng-repeat-end ng-model="filter.value" ng-options="value for value in filter.values" ng-change="$parent.filter()"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button class="form-control btn btn-success" ng-click="filter()">Filtrer</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="form-control btn btn-danger" ng-click="reset()">Remettre à zéro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 right">
+            <div ng-repeat="d in data" class="row entry">
+                <div class="col-xs-12">
+                    <h3><a href="{{ d.Lien }}">{{ d.Titre }}</a> <small>({{ d.Date | date:"dd/MM/yyyy" }})</small></h3>
+                    <p>
+                        {{ d.Chapo }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <script type="text/javascript" src="http://www.liberation.fr/menu/script.js"></script>
+
+        <!-- Chartbeat -->
+        <script type='text/javascript'>
+            var _sf_async_config={};
+            _sf_async_config.uid = 43601;
+            _sf_async_config.domain = 'liberation.fr';
+            _sf_async_config.useCanonical = true;
+            _sf_async_config.sections = "Static";
+            _sf_async_config.authors = "Static";
+            (function(){
+                function loadChartbeat() {
+                    window._sf_endpt=(new Date()).getTime();
+                    var e = document.createElement('script');
+                    e.setAttribute('language', 'javascript');
+                    e.setAttribute('type', 'text/javascript');
+                    e.setAttribute('src', 'http://static.chartbeat.com/' + 'js/chartbeat.js');
+                    document.body.appendChild(e);
+                }
+                var oldonload = window.onload;
+                window.onload = (typeof window.onload != 'function') ?
+                loadChartbeat : function() { oldonload(); loadChartbeat(); };
+            })();
+        </script>
+        <!-- // Chartbeat -->
+
+        <!-- Google Analytics -->
+        <script type="text/javascript" async="" src="http://www.google-analytics.com/analytics.js"></script>
+        <script>
+            (function(p,a,u,l,L,o,z){p['GoogleAnalyticsObject']=L;p[L]=p[L]||function(){
+            (p[L].q=p[L].q||[]).push(arguments)},p[L].l=1*new Date();o=a.createElement(u),
+            z=a.getElementsByTagName(u)[0];o.async=1;o.src=l;z.parentNode.insertBefore(o,z)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-41822557-1', 'liberation.fr');
+        </script>
+        <!-- // Google Analytics -->
+
+        <!-- Xiti -->
+        <script type="text/javascript">
+            xtnv = document;
+            xtsd = "http://logliberation";
+            xtsite = "381060";
+            xtn2 = "48";
+            xtpage = "Static::Data::";
+            xtdi = "";
+            xt_pagetype = "";
+            xt_multc = "&x1=0&x2=43&x3=&x4=&x5=&x6=7&x7=";
+            xt_an = "";
+            xt_ac = "";
+            if (window.xtparam==null) { window.xtparam = ''; }
+            window.xtparam += "&ptype="+xt_pagetype+"&ac="+xt_ac+"&an="+xt_an+xt_multc;
+        </script>
+        <noscript>
+            <img width="1" height="1" src="http://logliberation.xiti.com/hit.xiti?s=381060&amp;s2=56&amp;p=Static::Data::&amp;di=&amp;" >
+        </noscript>
+        <script type="text/javascript" src="http://s1.libe.com/bloom/theme/js/xtcore.js"></script>
+        <!-- // Xiti -->
+    </body>
+</html>
