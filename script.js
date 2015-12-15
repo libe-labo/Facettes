@@ -22,6 +22,8 @@ $(function() {
                     // Get filters
                     _.each(d, function(value, key) {
                         if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
+                            d[key] = _.map(value.split(','), _.trim);
+
                             if ($scope.filters[key] == null) {
                                 // Init filter
                                 reverseFilters[$filter('slugify')(key)] = key;
@@ -33,7 +35,7 @@ $(function() {
                                 };
                             }
 
-                            $scope.filters[key].values = _.uniq([value].concat($scope.filters[key].values));
+                            $scope.filters[key].values = _.uniq(d[key].concat($scope.filters[key].values));
                         }
                     });
 
@@ -58,7 +60,7 @@ $(function() {
 
             _.each($scope.filters, function(filter, key) {
                 if (filter.value !== '--') {
-                    template[key] = filter.value;
+                    template[key] = [filter.value];
                 }
             });
 
