@@ -65,12 +65,23 @@ $(function() {
             $scope.data = _(_.clone(all)).filter(template).sortByOrder('Date', 'desc').run();
         };
 
+        $scope.updateURLAndFilter = function() {
+            // Update URL
+            _.each($scope.filters, function(filter, key) {
+                $location.search(filter.slug, filter.value === '--' ? null : filter.value);
+            });
+
+            // And filter
+            $scope.filter(true);
+        };
+
         $scope.reset = function() {
+            // Reset every filter
             _.each($scope.filters, function(filter) {
                 filter.value = '--';
             });
 
-            $scope.filter();
+            $scope.updateURLAndFilter();
         };
     });
 });

@@ -45,7 +45,7 @@
                 <div class="form-group" ng-repeat="(f, filter) in filters">
                     <label for="filter{{ $index }}" class="col-sm-4 control-label">{{ f }}</label>
                     <div class="col-sm-8">
-                        <select id="filter{{ $index }}" class="form-control" ng-repeat-end ng-model="filter.value" ng-options="value for value in filter.values" ng-change="$parent.filter()"></select>
+                        <select id="filter{{ $index }}" class="form-control" ng-repeat-end ng-model="filter.value" ng-options="value for value in filter.values" ng-change="$parent.updateURLAndFilter()"></select>
                     </div>
                 </div>
                 <div class="form-group">
