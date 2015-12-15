@@ -1,10 +1,17 @@
 $(function() {
     var app = angular.module('app', []);
 
-    app.controller('Ctrl', function($scope, $http) {
+    app.filter('slugify', function() {
+        return function(input) {
+            return input.replace(/[^\w]/g, '').replace(/\s+/g, '-').toLowerCase();
+        };
+    });
+
+    app.controller('Ctrl', function($scope, $http, $location, $filter) {
         var all = [];
         $http.get('data.tsv').then(function(response) {
             $scope.filters = { };
+            var reverseFilters = {};
 
             $scope.data = d3.tsv.parse(response.data, (function() {
                 var essentialColumns = ['Titre', 'Chapo', 'Date', 'Lien'];
@@ -14,7 +21,7 @@ $(function() {
 
                     // Get filters
                     _.each(d, function(value, key) {
-                        if (essentialColumns.indexOf(key) < 0) {
+                        if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
                             if ($scope.filters[key] == null) {
                                 $scope.filters[key] = { values : ['--'] , value : '--' };
                             }
