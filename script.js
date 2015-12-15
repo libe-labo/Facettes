@@ -23,7 +23,14 @@ $(function() {
                     _.each(d, function(value, key) {
                         if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
                             if ($scope.filters[key] == null) {
-                                $scope.filters[key] = { values : ['--'] , value : '--' };
+                                // Init filter
+                                reverseFilters[$filter('slugify')(key)] = key;
+
+                                $scope.filters[key] = {
+                                    values: ['--'],
+                                    value: $location.search()[$filter('slugify')(key)] || '--', // Try to load value from URL before using default
+                                    slug: $filter('slugify')(key)
+                                };
                             }
 
                             $scope.filters[key].values = _.uniq([value].concat($scope.filters[key].values));
@@ -34,9 +41,16 @@ $(function() {
                 };
             })());
 
+            // Make sure we're only using existing values
+            _.each($scope.filters, function(filter, key) {
+                if (filter.values.indexOf(filter.value) < 0) {
+                    filter.value = '--'; // Reset to default
+                }
+            });
+
             all = _.clone($scope.data);
 
-            $scope.data = _.sortByOrder($scope.data, 'Date', 'desc');
+            $scope.filter();
         });
 
         $scope.filter = function() {
