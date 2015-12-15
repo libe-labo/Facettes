@@ -72,6 +72,9 @@
                     <p>
                         {{ d.Chapo }}
                     </p>
+                    <p>
+                        <span class="label label-default" ng-repeat="filter in getAllFilters(d)">{{ filter }}&nbsp;: {{ d[filter].join(', ') }}</span>
+                    </p>
                 </div>
             </div>
             <div class="pull-right">

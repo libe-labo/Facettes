@@ -8,51 +8,52 @@ $(function() {
     });
 
     app.controller('Ctrl', function($scope, $http, $location, $filter) {
-        var all = [];
-        $scope.data = [];
+        var essentialColumns = ['Titre', 'Chapo', 'Date', 'Lien'];
+
+        $scope.all = $scope.data = [];
 
         $http.get('data.tsv').then(function(response) {
             $scope.filters = { };
-            var reverseFilters = {};
+            var reverseFilters = { };
 
-            $scope.data = d3.tsv.parse(response.data, (function() {
-                var essentialColumns = ['Titre', 'Chapo', 'Date', 'Lien'];
+            $scope.data = d3.tsv.parse(response.data, function(d) {
+                d.Date = new Date(d.Date.split('/').reverse()); // Transform date into Date object
 
-                return function(d) {
-                    d.Date = new Date(d.Date.split('/').reverse()); // Transform date into Date object
+                // Get filters
+                _.each(d, function(value, key) {
+                    if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
+                        delete d[key]; // TMP
+                        key = key.split('(')[0].trim(); // TMP
+                        d[key] = _.map(value.split(','), _.trim);
 
-                    // Get filters
-                    _.each(d, function(value, key) {
-                        if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
-                            d[key] = _.map(value.split(','), _.trim);
+                        if ($scope.filters[key] == null) {
+                            reverseFilters[$filter('slugify')(key)] = key; // Init filter
 
-                            if ($scope.filters[key] == null) {
-                                // Init filter
-                                reverseFilters[$filter('slugify')(key)] = key;
-
-                                $scope.filters[key] = {
-                                    values: ['--'],
-                                    value: $location.search()[$filter('slugify')(key)] || '--', // Try to load value from URL before using default
-                                    slug: $filter('slugify')(key)
-                                };
-                            }
-
-                            $scope.filters[key].values = _.uniq(d[key].concat($scope.filters[key].values));
+                            $scope.filters[key] = {
+                                values: ['--'],
+                                value: $location.search()[$filter('slugify')(key)] || '--', // Try to load value from URL before using default
+                                slug: $filter('slugify')(key)
+                            };
                         }
-                    });
 
-                    return d;
-                };
-            })());
+                        $scope.filters[key].values =
+                            _.uniq(d[key].concat($scope.filters[key].values));
+                    }
+                });
+
+                return d;
+            });
 
             // Make sure we're only using existing values
             _.each($scope.filters, function(filter, key) {
                 if (filter.values.indexOf(filter.value) < 0) {
                     filter.value = '--'; // Reset to default
                 }
+
+                filter.values = filter.values.sort();
             });
 
-            all = _.clone($scope.data);
+            $scope.all = _.clone($scope.data);
 
             $scope.filter();
         });
