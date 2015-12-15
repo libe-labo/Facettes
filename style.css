@@ -44,6 +44,10 @@ p {
     font-family: 'syntheselibeweb', sans-serif;
 }
 
+.entry--no-result {
+    text-align: center;
+}
+
 .tt {
     display: none;
 

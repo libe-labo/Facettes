@@ -9,6 +9,8 @@ $(function() {
 
     app.controller('Ctrl', function($scope, $http, $location, $filter) {
         var all = [];
+        $scope.data = [];
+
         $http.get('data.tsv').then(function(response) {
             $scope.filters = { };
             var reverseFilters = {};
@@ -84,6 +86,10 @@ $(function() {
             });
 
             $scope.updateURLAndFilter();
+        };
+
+        $scope.noResult = function() {
+            return $scope.data.length <= 0;
         };
     });
 });

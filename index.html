@@ -59,6 +59,13 @@
             </div>
         </div>
         <div class="col-md-8 right">
+            <div ng-if="noResult()" class="row entry entry--no-result">
+                <div class="col-xs-12">
+                    <p>
+                        Aucun résultat
+                    </p>
+                </div>
+            </div>
             <div ng-repeat="d in data" class="row entry">
                 <div class="col-xs-12">
                     <h3><a href="{{ d.Lien }}">{{ d.Titre }}</a> <small>({{ d.Date | date:"dd/MM/yyyy" }})</small></h3>
