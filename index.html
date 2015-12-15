@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="col-md-8 right">
-            <div ng-if="noResult()" class="row entry entry--no-result">
+            <div ng-if="!hasResult()" class="row entry entry--no-result">
                 <div class="col-xs-12">
                     <p>
                         Aucun résultat
@@ -73,6 +73,9 @@
                         {{ d.Chapo }}
                     </p>
                 </div>
+            </div>
+            <div class="pull-right">
+                {{ data.length }} / {{ all.length }}
             </div>
         </div>
 

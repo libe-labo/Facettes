@@ -88,8 +88,14 @@ $(function() {
             $scope.updateURLAndFilter();
         };
 
-        $scope.noResult = function() {
-            return $scope.data.length <= 0;
+        $scope.hasResult = function() {
+            return $scope.data.length > 0;
+        };
+
+        $scope.getAllFilters = function(d) {
+            return _.filter(Object.keys(d), function(k) {
+                return k[0] !== '$' && essentialColumns.indexOf(k) < 0 && d[k].length > 0;
+            });
         };
     });
 });
