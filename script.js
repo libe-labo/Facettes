@@ -66,7 +66,7 @@ $(function() {
                 }
             });
 
-            $scope.data = _(_.clone(all)).filter(template).sortByOrder('Date', 'desc').run();
+            $scope.data = _($scope.all).filter(template).sortByOrder('Date', 'desc').run();
         };
 
         $scope.updateURLAndFilter = function() {
