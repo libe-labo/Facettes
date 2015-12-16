@@ -13,7 +13,7 @@
 
         <link rel="canonical" href="http://www.liberation.fr/apps////">
 
-        <meta property="og:title" content="La progression du FN, département par département" />
+        <meta property="og:title" content="" />
         <meta property="og:site_name" content="Libération.fr"/>
         <meta property="og:image" content="http://www.liberation.fr/apps////social.jpg" />
         <meta property="og:url" content="http://www.liberation.fr/apps////" />
@@ -48,9 +48,10 @@
                         <select id="filter{{ $index }}" class="form-control" ng-repeat-end ng-model="filter.value" ng-options="value for value in filter.values" ng-change="$parent.updateURLAndFilter()"></select>
                     </div>
                 </div>
+                <br>
                 <div class="form-group">
-                    <div class="col-sm-8 col-sm-offset-4">
-                        <button class="form-control btn btn-primary" ng-click="reset()">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <button class="form-control btn btn-primary" ng-click="reset()" style="font-size:.8em;">
                             <span class="glyphicon glyphicon-refresh"></span>
                             Remettre à zéro
                         </button>
