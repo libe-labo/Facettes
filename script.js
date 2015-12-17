@@ -7,7 +7,7 @@ $(function() {
         };
     });
 
-    app.controller('Ctrl', function($scope, $http, $location, $filter) {
+    app.controller('Ctrl', function($scope, $http, $location, $filter, $sce) {
         var essentialColumns = ['Titre', 'Chapo', 'Date', 'Lien'];
 
         $scope.all = $scope.data = [];
@@ -17,6 +17,7 @@ $(function() {
             var reverseFilters = { };
 
             $scope.data = d3.tsv.parse(response.data, function(d) {
+                d.Chapo = $sce.trustAsHtml(d.Chapo);
                 d.Date = new Date(d.Date.split('/').reverse()); // Transform date into Date object
 
                 // Get filters

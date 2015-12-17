@@ -70,8 +70,7 @@
             <div ng-repeat="d in data" class="row entry">
                 <div class="col-xs-12">
                     <h3><a href="{{ d.Lien }}">{{ d.Titre }}</a> <small>({{ d.Date | date:"dd/MM/yyyy" }})</small></h3>
-                    <p>
-                        {{ d.Chapo }}
+                    <p ng-bind-html="d.Chapo">
                     </p>
                     <p>
                         <span class="label label-default" ng-repeat="filter in getAllFilters(d)">{{ filter }}&nbsp;: {{ d[filter].join(', ') }}</span>
