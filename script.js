@@ -28,17 +28,20 @@ $(function() {
                         d[key] = _.map(value.split(','), _.trim);
 
                         if ($scope.filters[key] == null) {
-                            reverseFilters[$filter('slugify')(key)] = key; // Init filter
+                            var slug = $filter('slugify')(key);
 
+                            // Init filter
+                            reverseFilters[slug] = key;
                             $scope.filters[key] = {
                                 values: ['--'],
-                                value: $location.search()[$filter('slugify')(key)] || '--', // Try to load value from URL before using default
-                                slug: $filter('slugify')(key)
+                                value: $location.search()[slug] || '--', // Try to load value from URL before using default
+                                slug: slug
                             };
                         }
 
+                        // Compile all possible values for this filter in an array
                         $scope.filters[key].values =
-                            _.uniq(d[key].concat($scope.filters[key].values));
+                            _.uniq(d[key].concat($scope.filters[key].values)).sort();
                     }
                 });
 
@@ -46,12 +49,8 @@ $(function() {
             });
 
             // Make sure we're only using existing values
-            _.each($scope.filters, function(filter, key) {
-                if (filter.values.indexOf(filter.value) < 0) {
-                    filter.value = '--'; // Reset to default
-                }
-
-                filter.values = filter.values.sort();
+            _.each($scope.filters, function(filter) {
+                filter.value = filter.values.indexOf(filter.value) < 0 ? '--' : filter.value; // If this value doesn't mean a thing, reset to default
             });
 
             $scope.all = _.clone($scope.data);
@@ -78,7 +77,7 @@ $(function() {
             });
 
             // And filter
-            $scope.filter(true);
+            $scope.filter();
         };
 
         $scope.reset = function() {
