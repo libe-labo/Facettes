@@ -73,7 +73,11 @@
                     <p ng-bind-html="d.Chapo">
                     </p>
                     <p>
-                        <span class="label label-default" ng-repeat="filter in getAllFilters(d)">{{ filter }}&nbsp;: {{ d[filter].join(', ') }}</span>
+                        <span ng-repeat="filter in getAllFilters(d)">
+                            <span class="label label-default" ng-repeat="f in d[filter]">
+                                <a href="" ng-click="setFilterUpdateURLAndFilter(filter, f)">{{ f }}</a>
+                            </span>
+                        </span>
                     </p>
                 </div>
             </div>

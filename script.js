@@ -80,6 +80,12 @@ $(function() {
             $scope.filter();
         };
 
+        $scope.setFilterUpdateURLAndFilter = function(filter, value) {
+            $scope.reset();
+            $scope.filters[filter].value = value;
+            $scope.updateURLAndFilter();
+        };
+
         $scope.reset = function() {
             // Reset every filter
             _.each($scope.filters, function(filter) {
