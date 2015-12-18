@@ -1,5 +1,7 @@
 html, body {
     font-size: inherit !important;
+
+    height: 100%;
 }
 
 html body {
@@ -24,6 +26,12 @@ body h1 {
     text-transform: uppercase;
 }
 
+.left, .right {
+    max-height: 100%;
+
+    overflow-y: auto;
+}
+
 body .btn {
     height: auto;
     padding: .7em;
@@ -45,7 +53,8 @@ body .btn-primary {
     background-color: #e61e49;
 }
 
-body .btn-primary:hover {
+body .btn-primary:hover,
+body .btn-primary:focus {
     border-color: #c6c6c6;
 
     background-color: #ffffff;
@@ -73,10 +82,6 @@ body select.form-control {
 .entry .label {
     font-weight: 400;
     margin-right: .3em;
-}
-
-.entry .label:last-of-type {
-    margin-right: 0;
 }
 
 .entry--no-result {
