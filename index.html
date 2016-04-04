@@ -32,7 +32,8 @@
 
         <!-- ANGULAR -->
         <script type="text/javascript" src="script.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.5.3/i18n/angular-locale_fr-fr.js"></script>
     </head>
     <body ng-controller="Ctrl">
         <div class="col-md-4 left">
@@ -69,7 +70,7 @@
             </div>
             <div ng-repeat="d in data" class="row entry">
                 <div class="col-xs-12">
-                    <h3><a href="{{ d.Lien }}">{{ d.Titre }}</a> <small>({{ d.Date | date:"dd/MM/yyyy" }})</small></h3>
+                    <h3><a href="{{ d.Lien }}">{{ d.Titre }}</a> <small>({{ d.Date | date:"dd MMMM" }})</small></h3>
                     <p ng-bind-html="d.Chapo">
                     </p>
                     <p>
