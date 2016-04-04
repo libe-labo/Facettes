@@ -16,15 +16,13 @@ $(function() {
             $scope.filters = { };
             var reverseFilters = { };
 
-            $scope.data = d3.tsv.parse(response.data, function(d) {
+            $scope.data = d3_dsv.tsvParse(response.data, function(d) {
                 d.Chapo = $sce.trustAsHtml(d.Chapo);
                 d.Date = new Date(d.Date.split('/').reverse()); // Transform date into Date object
 
                 // Get filters
                 _.each(d, function(value, key) {
                     if (essentialColumns.indexOf(key) < 0 && value.length > 0) {
-                        delete d[key]; // TMP
-                        key = key.split('(')[0].trim(); // TMP
                         d[key] = _.map(value.split(','), _.trim);
 
                         if ($scope.filters[key] == null) {
